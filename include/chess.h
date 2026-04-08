@@ -35,6 +35,8 @@ typedef struct {
     Piece cases[8][8];
     Couleur tourActuel;
     Historique historique;
+    int enPassantX;
+    int enPassantY;
     float tempsBlanc; // Timer Lichess
     float tempsNoir;
 } Partie;
@@ -50,6 +52,7 @@ bool EstEnEchec(Partie* p, Couleur c);
 bool EstMouvementLegal(Partie* p, int sx, int sy, int ex, int ey);
 void JouerCoup(Partie* p, int sx, int sy, int ex, int ey);
 bool EstEchecEtMat(Partie* p, Couleur c);
+bool EstPat(Partie* p, Couleur c);
 
 // ui.c
 void DessinerPlateau(Partie* p, int caseSelX, int caseSelY, Texture2D textures[]);

@@ -49,6 +49,8 @@ void InitPartie(Partie* p) {
     p->cases[7][7] = CreerPiece(TOUR, BLANC);
 
     p->tourActuel = BLANC;
+    p->enPassantX = -1;
+    p->enPassantY = -1;
     p->historique.capacite = 50;
     p->historique.taille = 0;
     p->historique.coups = (Coup*)malloc((size_t)p->historique.capacite * sizeof(Coup));
@@ -65,4 +67,6 @@ void FreePartie(Partie* p) {
     p->historique.coups = NULL;
     p->historique.capacite = 0;
     p->historique.taille = 0;
+    p->enPassantX = -1;
+    p->enPassantY = -1;
 }

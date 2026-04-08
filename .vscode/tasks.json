@@ -9,7 +9,11 @@
                 "-Wall",
                 "-Wextra",
                 "-g3",
-                "Untitled-1.c",
+                "src\\main.c",
+                "src\\board.c",
+                "src\\moves.c",
+                "src\\ui.c",
+                "-Iinclude",
                 "-o",
                 "chess.exe",
                 "-lraylib",
@@ -26,7 +30,12 @@
                 "reveal": "always",
                 "panel": "new"
             },
-            "problemMatcher": "$gcc"
+            "options": {
+                "env": {
+                    "PATH": "C:\\msys64\\mingw64\\bin;${env:PATH}"
+                }
+            },
+            "problemMatcher": "$msCompile"
         },
         {
             "label": "Lancer le jeu d'Echecs",
