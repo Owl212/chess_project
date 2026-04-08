@@ -8,15 +8,29 @@ static Color CouleurCase(int x, int y) {
     return ((x + y) % 2 == 0) ? claire : foncee;
 }
 
-static char SymbolePiece(Piece piece) {
-    switch (piece.type) {
-        case PION: return 'P';
-        case CAVALIER: return 'C';
-        case FOU: return 'F';
-        case TOUR: return 'T';
-        case REINE: return 'D';
-        case ROI: return 'R';
-        default: return ' ';
+static const char* SymbolePiece(Piece piece) {
+    if (piece.type == VIDE) return " ";
+    
+    if (piece.couleur == BLANC) {
+        switch (piece.type) {
+            case PION: return "♙";
+            case CAVALIER: return "♘";
+            case FOU: return "♗";
+            case TOUR: return "♖";
+            case REINE: return "♕";
+            case ROI: return "♔";
+            default: return " ";
+        }
+    } else {
+        switch (piece.type) {
+            case PION: return "♟";
+            case CAVALIER: return "♞";
+            case FOU: return "♝";
+            case TOUR: return "♜";
+            case REINE: return "♛";
+            case ROI: return "♚";
+            default: return " ";
+        }
     }
 }
 
@@ -116,7 +130,7 @@ void DessinerPlateau(Partie* p, int caseSelX, int caseSelY, Texture2D textures[]
             Piece piece = p->cases[y][x];
             if (piece.type != VIDE) {
                 Color couleurPiece = (piece.couleur == BLANC) ? WHITE : BLACK;
-                DrawText(TextFormat("%c", SymbolePiece(piece)), x * tailleCase + margeTexteX, y * tailleCase + margeTexteY, 40, couleurPiece);
+                DrawText(SymbolePiece(piece), x * tailleCase + margeTexteX - 8, y * tailleCase + margeTexteY - 5, 50, couleurPiece);
             }
         }
     }
