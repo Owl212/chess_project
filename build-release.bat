@@ -43,7 +43,7 @@ xcopy "assets" "%OUT_DIR%\assets" /E /I /Y >nul
 copy /Y "README.md" "%OUT_DIR%\README.md" >nul
 copy /Y "QUICK-START.md" "%OUT_DIR%\QUICK-START.md" >nul
 
-for %%f in (raylib.dll libgcc_s_seh-1.dll libwinpthread-1.dll libstdc++-6.dll) do (
+for %%f in (libraylib.dll raylib.dll libgcc_s_seh-1.dll libwinpthread-1.dll libstdc++-6.dll) do (
     if exist "%MSYS_BIN%\%%f" copy /Y "%MSYS_BIN%\%%f" "%OUT_DIR%\%%f" >nul
 )
 
