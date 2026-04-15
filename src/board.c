@@ -1,29 +1,35 @@
 #include "chess.h"
-
 #include <stdlib.h>
+#include <string.h>
 
-static Piece CreerPiece(TypePiece type, Couleur couleur) {
-    Piece piece;
-    piece.type = type;
-    piece.couleur = couleur;
-    piece.aBouge = false;
-    return piece;
+Piece CreerPiece(TypePiece type, Couleur couleur) {
+    Piece p;
+    p.type = type;
+    p.couleur = couleur;
+    p.aBouge = false;
+    return p;
 }
 
-static void ViderPlateau(Partie* p) {
-    for (int y = 0; y < 8; y++) {
-        for (int x = 0; x < 8; x++) {
-            p->cases[y][x] = CreerPiece(VIDE, AUCUNE);
-        }
+void NettoyerPartie(Partie* p) {
+    if (p->historique.coups != NULL) {
+        free(p->historique.coups);
+        p->historique.coups = NULL;
     }
+    p->historique.taille = 0;
+    p->historique.capacite = 0;
 }
 
 void InitPartie(Partie* p) {
-    if (p == NULL) {
-        return;
-    }
+    NettoyerPartie(p);
+    p->historique.capacite = 256;
+    p->historique.coups = (Coup*)malloc(sizeof(Coup) * p->historique.capacite);
+    p->historique.taille = 0;
 
-    ViderPlateau(p);
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            p->cases[y][x] = CreerPiece(VIDE, AUCUN);
+        }
+    }
 
     p->cases[0][0] = CreerPiece(TOUR, NOIR);
     p->cases[0][1] = CreerPiece(CAVALIER, NOIR);
@@ -33,12 +39,9 @@ void InitPartie(Partie* p) {
     p->cases[0][5] = CreerPiece(FOU, NOIR);
     p->cases[0][6] = CreerPiece(CAVALIER, NOIR);
     p->cases[0][7] = CreerPiece(TOUR, NOIR);
+    for(int x = 0; x < 8; x++) p->cases[1][x] = CreerPiece(PION, NOIR);
 
-    for (int x = 0; x < 8; x++) {
-        p->cases[1][x] = CreerPiece(PION, NOIR);
-        p->cases[6][x] = CreerPiece(PION, BLANC);
-    }
-
+    for(int x = 0; x < 8; x++) p->cases[6][x] = CreerPiece(PION, BLANC);
     p->cases[7][0] = CreerPiece(TOUR, BLANC);
     p->cases[7][1] = CreerPiece(CAVALIER, BLANC);
     p->cases[7][2] = CreerPiece(FOU, BLANC);
@@ -51,22 +54,27 @@ void InitPartie(Partie* p) {
     p->tourActuel = BLANC;
     p->enPassantX = -1;
     p->enPassantY = -1;
-    p->historique.capacite = 50;
-    p->historique.taille = 0;
-    p->historique.coups = (Coup*)malloc((size_t)p->historique.capacite * sizeof(Coup));
-    p->tempsBlanc = 600.0f;
-    p->tempsNoir = 600.0f;
+
+    p->tempsBlanc = 300.0f;
+    p->tempsNoir = 300.0f;
+    p->tempsInitial = 300; 
+    p->etat = MENU_PRINCIPAL;
+    p->mode = MODE_PVP;
+    p->niveauBot = 3;
+    
+    p->etatTakeback = PAS_DE_DEMANDE;
+    p->partieTerminee = false;
+    p->afficherHint = false;
+    p->tempsHintRestant = 0.0f;
+    p->meilleurCoupHint.startX = -1;
 }
 
-void FreePartie(Partie* p) {
-    if (p == NULL) {
-        return;
+void CopierPartie(Partie* src, Partie* dest) {
+    *dest = *src; 
+    if (src->historique.capacite > 0 && src->historique.coups != NULL) {
+        dest->historique.coups = (Coup*)malloc(sizeof(Coup) * src->historique.capacite);
+        memcpy(dest->historique.coups, src->historique.coups, sizeof(Coup) * src->historique.taille);
+    } else {
+        dest->historique.coups = NULL;
     }
-
-    free(p->historique.coups);
-    p->historique.coups = NULL;
-    p->historique.capacite = 0;
-    p->historique.taille = 0;
-    p->enPassantX = -1;
-    p->enPassantY = -1;
 }

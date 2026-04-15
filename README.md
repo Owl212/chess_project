@@ -1,5 +1,32 @@
 # Jeu d'Échecs Raylib - Configuration Complète
 
+## GitHub
+
+- Dépôt: https://github.com/Owl212/chess_project
+- Releases (téléchargement): https://github.com/Owl212/chess_project/releases/latest
+- Téléchargement direct de l'app (lien à partager): https://github.com/Owl212/chess_project/releases/latest/download/chess-windows.zip
+
+Le dépôt est configuré pour GitHub: Owl212/chess_project.
+
+Exemple de lien que vous pouvez envoyer:
+https://github.com/mon-user/chess_project/releases/latest/download/chess-windows.zip
+
+## Télécharger le jeu (Windows)
+
+1. Ouvrez le lien direct: https://github.com/Owl212/chess_project/releases/latest/download/chess-windows.zip
+2. Décompressez le ZIP.
+3. Lancez chess.exe.
+
+## Créer l'archive ZIP à publier
+
+Depuis la racine du projet:
+
+```powershell
+.\build-release.bat
+```
+
+Le script génère `dist/chess-windows.zip` prêt à être envoyé dans GitHub Releases.
+
 ## 🔧 Installation Complète (choix simple : MSYS2)
 
 **Le problème:** Votre MinGW 6.3.0 est trop vieux pour être compatible avec raylib moderne.

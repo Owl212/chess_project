@@ -1,5 +1,22 @@
 # DEMARRAGE RAPIDE (2 minutes)
 
+## Lien GitHub et telechargement
+
+- Depot: https://github.com/Owl212/chess_project
+- Telechargement direct (release): https://github.com/Owl212/chess_project/releases/latest
+- Lien direct a envoyer (telechargement immediat): https://github.com/Owl212/chess_project/releases/latest/download/chess-windows.zip
+
+Pour publier une version telechargeable:
+
+```powershell
+.\build-release.bat
+```
+
+Puis uploadez dist/chess-windows.zip dans GitHub Releases.
+
+Ensuite, envoyez simplement ce lien:
+https://github.com/Owl212/chess_project/releases/latest/download/chess-windows.zip
+
 ## Les 3 étapes (faciles!)
 
 ### 1️⃣ Installer les outils

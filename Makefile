@@ -2,7 +2,7 @@
 
 # Paramètres
 PROGRAM = chess.exe
-SOURCE = src/main.c src/board.c src/moves.c src/ui.c
+SOURCE = src/main.c src/board.c src/ui.c src/rules.c src/moves.c src/ai.c
 OUTPUT = ${PROGRAM}
 
 # Détectez automatiquement le compilateur
